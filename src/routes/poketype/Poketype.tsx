@@ -2,30 +2,28 @@ import React, { FunctionComponent } from "react";
 import usePoketype from "./usePoketype";
 import { Link, useParams } from "react-router-dom";
 import { IPoketype as ImportedPokeType } from "./usePoketype";
-const Poketype: FunctionComponent = () => {
-  const { type } = useParams();
-  const { poketype } = usePoketype();
-  const renderPoketype = (): JSX.Element[] => {
-    return poketype.map((poketype, index) => {
-      return (
-        <React.Fragment key={index}>
-          <Link to={`/${poketype.name}`}>
-            <button>{poketype.name} </button>
-          </Link>
-        </React.Fragment>
-      );
-    });
-  };
+import Pokemon from "../pokemon/Pokemon";
 
-  const renderPoketypeDiv = () => {
-    let individualType = poketype.find((poketype) => poketype.name === type);
-    return <h1>{individualType?.name}</h1>;
+interface SpecificPoketype {
+  poketype: ImportedPokeType["poketype"];
+}
+const Poketype: FunctionComponent<SpecificPoketype> = ({ poketype }) => {
+  const { type }: any = useParams();
+
+  const renderPoketypeEach = (): JSX.Element[] => {
+    return poketype
+      .filter((poketype) => {
+        return poketype.name === type;
+      })
+      .map((poketypes, idx) => {
+        return (
+          <div key={idx}>
+            <h1>{poketypes.name}</h1>
+          </div>
+        );
+      });
   };
-  return (
-    <div>
-      {renderPoketype()} {renderPoketypeDiv()}
-    </div>
-  );
+  return <div>{renderPoketypeEach()}</div>;
 };
 
 export default Poketype;

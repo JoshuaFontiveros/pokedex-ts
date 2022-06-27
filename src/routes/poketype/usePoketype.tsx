@@ -7,8 +7,18 @@ export interface IPoketype {
   }[];
 }
 
+interface IPoketypeNamesOnly {
+  poketypeNames: {
+    name: string;
+  }[];
+}
+
 const usePoketype = () => {
   const [poketype, setPoketype] = useState<IPoketype["poketype"]>([]);
+
+  const [poketypeNames, setPoketypeNames] = useState<
+    IPoketypeNamesOnly["poketypeNames"]
+  >([]);
 
   const getPoketypes = async () => {
     await axios.get(`https://pokeapi.co/api/v2/type`).then((res) => {
@@ -20,7 +30,7 @@ const usePoketype = () => {
     getPoketypes();
   }, []);
 
-  return { poketype, setPoketype };
+  return { poketype, setPoketype, poketypeNames };
 };
 
 export default usePoketype;
