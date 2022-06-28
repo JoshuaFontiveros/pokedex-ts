@@ -15,7 +15,7 @@ const Home = () => {
       );
     });
   };
-  return <div>{renderPoketype()}</div>;
+  return <>{renderPoketype()}</>;
 };
 
 export default Home;

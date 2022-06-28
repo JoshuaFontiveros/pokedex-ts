@@ -8,7 +8,7 @@ interface SpecificPoketype {
   poketype: ImportedPokeType["poketype"];
 }
 const Poketype: FunctionComponent<SpecificPoketype> = ({ poketype }) => {
-  const { type }: any = useParams();
+  const { type } = useParams<string>();
 
   const renderPoketypeEach = (): JSX.Element[] => {
     return poketype
@@ -23,7 +23,12 @@ const Poketype: FunctionComponent<SpecificPoketype> = ({ poketype }) => {
         );
       });
   };
-  return <div>{renderPoketypeEach()}</div>;
+  return (
+    <div>
+      <Link to="/">Home</Link>
+      {renderPoketypeEach()}
+    </div>
+  );
 };
 
 export default Poketype;
